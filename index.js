@@ -69,7 +69,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
       const exercise = new Exercise({
         description: req.body.description,
         duration: req.body.duration,
-        date: req.body.date || '',
+        date: req.body.date || new Date().toISOString().split('T')[0],
         username: user.username
       });
 
@@ -82,9 +82,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
             description: data.description,
             duration: data.duration,
             username: data.username,
-            date: (data.date)
-              ? new Date(data.date).toDateString()
-              : data.date
+            date: new Date(data.date).toDateString()
           });
         }
       });
@@ -127,9 +125,7 @@ app.get('/api/users/:id/logs', (req, res) => {//[from][&to][&limit]
               return {
                 description: item.description, 
                 duration: item.duration,
-                date: (item.date)
-                  ? new Date(item.date).toDateString()
-                  : item.date
+                date: new Date(item.date).toDateString()
               };
             })
           });
