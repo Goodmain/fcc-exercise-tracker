@@ -27,7 +27,7 @@ let Exercise = mongoose.model('Exercise', new mongoose.Schema({
     type: String,
     required: true
   },
-  date: String
+  date: Date
 }));
 
 app.use(cors());
@@ -111,7 +111,8 @@ app.get('/api/users/:id/logs', (req, res) => {//[from][&to][&limit]
         }
       }
 
-      Exercise.find(filter)
+      Exercise
+      .find(filter)
       .limit(req.query?.limit)
       .exec((err, exercises) => {
         if (err) {
