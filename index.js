@@ -78,7 +78,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
           res.json({ error: err.message });
         } else {
           res.json({
-            _id: data._id,
+            _id: user._id,
             description: data.description,
             duration: data.duration,
             username: data.username,
