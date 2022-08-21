@@ -27,7 +27,7 @@ let Exercise = mongoose.model('Exercise', new mongoose.Schema({
     type: String,
     required: true
   },
-  date: Date
+  date: String
 }));
 
 app.use(cors());
@@ -69,7 +69,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
       const exercise = new Exercise({
         description: req.body.description,
         duration: req.body.duration,
-        date: req.body.date || Date.now(),
+        date: req.body.date || '',
         username: user.username
       });
 
@@ -82,7 +82,9 @@ app.post('/api/users/:id/exercises', (req, res) => {
             description: data.description,
             duration: data.duration,
             username: data.username,
-            date: new Date(data.date).toDateString()
+            date: (data.date)
+              ? new Date(data.date).toDateString()
+              : data.date
           });
         }
       });
@@ -125,7 +127,9 @@ app.get('/api/users/:id/logs', (req, res) => {//[from][&to][&limit]
               return {
                 description: item.description, 
                 duration: item.duration,
-                date: new Date(item.date).toDateString()
+                date: (item.date)
+                  ? new Date(item.date).toDateString()
+                  : item.date
               };
             })
           });
