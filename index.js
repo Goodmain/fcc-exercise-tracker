@@ -69,7 +69,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
       const exercise = new Exercise({
         description: req.body.description,
         duration: req.body.duration,
-        date: req.body.date,
+        date: req.body.date || Date.now(),
         username: user.username
       });
 
@@ -82,7 +82,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
             description: data.description,
             duration: data.duration,
             username: data.username,
-            date: new Date(req.body.date).toDateString()
+            date: new Date(data.date).toDateString()
           });
         }
       });
